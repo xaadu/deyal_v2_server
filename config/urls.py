@@ -25,3 +25,8 @@ urlpatterns = [
     path("blogs/", include("blogs.urls")),
     path("posts/", include("posts.urls")),
 ]
+
+# Admin Config
+admin.site.site_header = "Dashboard | Deyal"
+admin.site.site_title = "Dashboard | Deyal"
+admin.site.index_title = "Home"
