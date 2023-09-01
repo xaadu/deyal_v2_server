@@ -6,5 +6,5 @@ from .serializers import ThreapistSerializer
 
 
 class TherapistViewSet(viewsets.ModelViewSet):
-    queryset = Therapist.objects.all()
+    queryset = Therapist.objects.all().select_related("speciality")
     serializer_class = ThreapistSerializer

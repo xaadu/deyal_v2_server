@@ -5,11 +5,21 @@ from config.models import BaseModel
 
 
 class Therapist(BaseModel):
-    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     name = models.CharField()
     img = models.URLField()
     expyear = models.IntegerField()
     description = models.TextField()
+
+    speciality = models.ForeignKey(
+        "services.service",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    user = models.OneToOneField(
+        get_user_model(),
+        on_delete=models.CASCADE,
+    )
 
     def __str__(self) -> str:
         return self.name

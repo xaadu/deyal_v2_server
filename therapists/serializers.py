@@ -9,8 +9,13 @@ class ThreapistSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "name",
+            "speciality",
             "img",
             "expyear",
             "description",
-            "user",
         ]
+
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        rep["speciality"] = instance.speciality.title
+        return rep
