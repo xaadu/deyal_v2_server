@@ -14,7 +14,7 @@ class BlogPagination(PageNumberPagination):
 
 class BlogViewSet(viewsets.ModelViewSet):
     queryset = (
-        Blog.objects.filter(is_active=True).select_related("therapist").order_by("id")
+        Blog.objects.filter(is_active=True).select_related("therapist").order_by("-id")
     )
     serializer_class = BlogSerializer
     pagination_class = BlogPagination
