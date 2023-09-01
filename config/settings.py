@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "corsheaders",
     # Custom Apps
     "accounts",
+    "therapists",
 ]
 
 MIDDLEWARE = [
