@@ -34,3 +34,18 @@ class AppointmentTimeSerializer(serializers.ModelSerializer):
             "details",
             "therapist",
         ]
+
+
+class AppointmentBookingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AppointmentBooking
+        fields = [
+            "id",
+            "full_name",
+            "email",
+            "current_age",
+            "phone_no",
+            "gender",
+            "site_user",
+            "appointment_time",
+        ]

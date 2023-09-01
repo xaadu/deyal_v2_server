@@ -8,6 +8,7 @@ from .models import (
 from .serializers import (
     ThreapistSerializer,
     AppointmentTimeSerializer,
+    AppointmentBookingSerializer,
 )
 
 
@@ -39,3 +40,8 @@ class AppointmentTimeViewSet(viewsets.ModelViewSet):
         qs = qs.filter(therapist_id=therapist_id, appointment_type=appointment_type)
 
         return qs
+
+
+class AppointmentBookingViewSet(viewsets.ModelViewSet):
+    queryset = AppointmentBooking.objects.none()
+    serializer_class = AppointmentBookingSerializer
