@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "accounts",
     "services",
     "therapists",
+    "blogs",
 ]
 
 MIDDLEWARE = [
