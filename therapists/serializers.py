@@ -1,6 +1,10 @@
 from rest_framework import serializers
 
-from .models import Therapist
+from .models import (
+    Therapist,
+    AppointmentTime,
+    AppointmentBooking,
+)
 
 
 class ThreapistSerializer(serializers.ModelSerializer):
@@ -19,3 +23,14 @@ class ThreapistSerializer(serializers.ModelSerializer):
         rep = super().to_representation(instance)
         rep["speciality"] = instance.speciality.title
         return rep
+
+
+class AppointmentTimeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AppointmentTime
+        fields = [
+            "id",
+            "appointment_type",
+            "details",
+            "therapist",
+        ]
