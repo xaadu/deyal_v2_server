@@ -7,6 +7,7 @@ class ThreapistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Therapist
         fields = [
+            "id",
             "name",
             "img",
             "expyear",
