@@ -25,5 +25,5 @@ class BlogAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if not request.user.is_superuser:
-            qs = qs.filter(therapist_id=request.user.therapist.id)
+            qs = qs.filter(therapist_id=request.user.therapist.id, active=True)
         return qs
