@@ -6,6 +6,6 @@ from .serializers import SiteUserSerializer
 
 
 class SiteUserViewSet(viewsets.ModelViewSet):
-    queryset = SiteUser.objects.all()
+    queryset = SiteUser.objects.filter(is_active=True)
     serializer_class = SiteUserSerializer
     lookup_value_regex = "(?P<data>[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})"

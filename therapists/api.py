@@ -13,7 +13,7 @@ from .serializers import (
 
 
 class TherapistViewSet(viewsets.ModelViewSet):
-    queryset = Therapist.objects.all().select_related("speciality")
+    queryset = Therapist.objects.filter(is_active=True).select_related("speciality")
     serializer_class = ThreapistSerializer
 
     def get_queryset(self):
@@ -25,7 +25,7 @@ class TherapistViewSet(viewsets.ModelViewSet):
 
 
 class AppointmentTimeViewSet(viewsets.ModelViewSet):
-    queryset = AppointmentTime.objects.all()
+    queryset = AppointmentTime.objects.filter(is_active=True)
     serializer_class = AppointmentTimeSerializer
 
     def get_queryset(self):
