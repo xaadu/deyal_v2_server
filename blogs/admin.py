@@ -14,7 +14,7 @@ class BlogAdmin(admin.ModelAdmin):
     search_fields = (
         "title",
         "des",
-        "therapist__full_name",
+        "therapist__name",
     )
     list_filter = (
         "is_active",
