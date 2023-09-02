@@ -28,7 +28,7 @@ class ServiceAdmin(admin.ModelAdmin):
     list_filter = ("is_active",)
     ordering = (
         "is_active",
-        "id",
+        "-id",
     )
 
 
@@ -50,7 +50,7 @@ class SymptomAdmin(admin.ModelAdmin):
     )
     ordering = (
         "is_active",
-        "id",
+        "-id",
     )
 
     @admin.display(description="Details", ordering="details")
