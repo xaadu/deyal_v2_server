@@ -34,7 +34,7 @@ class AppointmentTime(BaseModel):
     )
 
     appointment_type = models.CharField(choices=APPOINTMENT_TYPE_CHOICES)
-    details = models.CharField()
+    details = models.CharField(help_text="Ex. Monday (9 PM to 11 PM)")
 
     therapist = models.ForeignKey(Therapist, on_delete=models.CASCADE)
 
