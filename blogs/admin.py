@@ -13,6 +13,7 @@ class BlogAdmin(admin.ModelAdmin):
     )
     search_fields = (
         "title",
+        "des",
         "therapist__full_name",
     )
     list_filter = (
