@@ -20,7 +20,10 @@ class BlogAdmin(admin.ModelAdmin):
         "is_active",
         "therapist",
     )
-    ordering = ("is_active",)
+    ordering = (
+        "is_active",
+        "-id",
+    )
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
