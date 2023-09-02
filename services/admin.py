@@ -26,7 +26,10 @@ class ServiceAdmin(admin.ModelAdmin):
     )
     inlines = (SymptomInlineAdmin,)
     list_filter = ("is_active",)
-    ordering = ("is_active",)
+    ordering = (
+        "is_active",
+        "id",
+    )
 
 
 @admin.register(Symptom)
@@ -45,7 +48,10 @@ class SymptomAdmin(admin.ModelAdmin):
         "is_active",
         "service",
     )
-    ordering = ("is_active",)
+    ordering = (
+        "is_active",
+        "id",
+    )
 
     @admin.display(description="Details", ordering="details")
     def get_details(self, obj):
