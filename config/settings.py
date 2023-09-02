@@ -143,6 +143,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = False
 
+# CSRF
+CSRF_TRUSTED_ORIGINS = [
+    "http://deyal-service.zayedabdullah.com",
+    "https://deyal-service.zayedabdullah.com",
+]
+
 
 # JAZZMIN Config
 JAZZMIN_SETTINGS = {
