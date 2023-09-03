@@ -9,5 +9,9 @@ class PostSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "details",
+            "site_user",
             "created_at",
         ]
+        extra_kwargs = {
+            "site_user": {"write_only": True},
+        }
