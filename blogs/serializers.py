@@ -16,7 +16,7 @@ class BlogSerializer(serializers.ModelSerializer):
             "therapist",
         ]
 
-    def get_date(self, instance):
+    def get_date(self, instance) -> str:
         return instance.created_at.strftime("%B %d, %Y")
 
     def to_representation(self, instance):

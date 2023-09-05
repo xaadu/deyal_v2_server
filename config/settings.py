@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     "therapists",
     "blogs",
     "posts",
+    # Installled Apps
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -148,6 +150,18 @@ CSRF_TRUSTED_ORIGINS = [
     "http://deyal-service.zayedabdullah.com",
     "https://deyal-service.zayedabdullah.com",
 ]
+
+# Rest Framework Settings
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+# Spectacular Settings
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Deyal",
+    "DESCRIPTION": "Mental Health Service",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
 
 
 # JAZZMIN Config

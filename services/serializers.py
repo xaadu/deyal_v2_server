@@ -19,5 +19,5 @@ class ServiceSerializer(serializers.ModelSerializer):
             "cure",
         ]
 
-    def get_sym(self, obj):
+    def get_sym(self, obj) -> list[str]:
         return [symptom.details for symptom in obj.symptom_set.all()]
