@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+)
+
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
@@ -25,10 +29,12 @@ from drf_spectacular.views import (
 
 
 API_URLS = [
+    path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("account/", include("accounts.urls")),
     path("services/", include("services.urls")),
     path("therapists/", include("therapists.urls")),
     path("blogs/", include("blogs.urls")),
+    path("restricted-blogs/", include("restricted_blogs.urls")),
     path("posts/", include("posts.urls")),
     path(
         route="schema/",

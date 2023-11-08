@@ -10,8 +10,9 @@ paths:
       tags:
       - account
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -39,8 +40,9 @@ paths:
               $ref: '#/components/schemas/SiteUser'
         required: true
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '201':
@@ -62,8 +64,9 @@ paths:
       tags:
       - account
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -96,8 +99,9 @@ paths:
               $ref: '#/components/schemas/SiteUser'
         required: true
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -129,8 +133,9 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedSiteUser'
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -151,8 +156,9 @@ paths:
       tags:
       - account
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '204':
@@ -176,8 +182,9 @@ paths:
       tags:
       - blogs
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -203,8 +210,9 @@ paths:
               $ref: '#/components/schemas/Blog'
         required: true
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '201':
@@ -226,8 +234,9 @@ paths:
       tags:
       - blogs
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -260,8 +269,9 @@ paths:
               $ref: '#/components/schemas/Blog'
         required: true
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -293,8 +303,9 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedBlog'
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -315,12 +326,40 @@ paths:
       tags:
       - blogs
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '204':
           description: No response body
+  /api/login/:
+    post:
+      operationId: login_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
   /api/posts/:
     get:
       operationId: posts_list
@@ -340,8 +379,9 @@ paths:
       tags:
       - posts
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -367,8 +407,9 @@ paths:
               $ref: '#/components/schemas/Post'
         required: true
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '201':
@@ -390,8 +431,9 @@ paths:
       tags:
       - posts
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -424,8 +466,9 @@ paths:
               $ref: '#/components/schemas/Post'
         required: true
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -457,8 +500,9 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedPost'
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -479,9 +523,174 @@ paths:
       tags:
       - posts
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
+      responses:
+        '204':
+          description: No response body
+  /api/restricted-blogs/:
+    get:
+      operationId: restricted_blogs_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - restricted-blogs
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBlogList'
+          description: ''
+    post:
+      operationId: restricted_blogs_create
+      tags:
+      - restricted-blogs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Blog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Blog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Blog'
+        required: true
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+          description: ''
+  /api/restricted-blogs/{id}/:
+    get:
+      operationId: restricted_blogs_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this blog.
+        required: true
+      tags:
+      - restricted-blogs
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+          description: ''
+    put:
+      operationId: restricted_blogs_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this blog.
+        required: true
+      tags:
+      - restricted-blogs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Blog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Blog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Blog'
+        required: true
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+          description: ''
+    patch:
+      operationId: restricted_blogs_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this blog.
+        required: true
+      tags:
+      - restricted-blogs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBlog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBlog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBlog'
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+          description: ''
+    delete:
+      operationId: restricted_blogs_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this blog.
+        required: true
+      tags:
+      - restricted-blogs
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       responses:
         '204':
           description: No response body
@@ -491,8 +700,9 @@ paths:
       tags:
       - services
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -520,8 +730,9 @@ paths:
               $ref: '#/components/schemas/Service'
         required: true
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '201':
@@ -543,8 +754,9 @@ paths:
       tags:
       - services
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -577,8 +789,9 @@ paths:
               $ref: '#/components/schemas/Service'
         required: true
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -610,8 +823,9 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedService'
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -632,8 +846,9 @@ paths:
       tags:
       - services
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '204':
@@ -644,8 +859,9 @@ paths:
       tags:
       - therapists
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -673,8 +889,9 @@ paths:
               $ref: '#/components/schemas/Threapist'
         required: true
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '201':
@@ -696,8 +913,9 @@ paths:
       tags:
       - therapists
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -730,8 +948,9 @@ paths:
               $ref: '#/components/schemas/Threapist'
         required: true
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -763,8 +982,9 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedThreapist'
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -785,8 +1005,9 @@ paths:
       tags:
       - therapists
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '204':
@@ -797,8 +1018,9 @@ paths:
       tags:
       - therapists
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -826,8 +1048,9 @@ paths:
               $ref: '#/components/schemas/AppointmentBooking'
         required: true
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '201':
@@ -849,8 +1072,9 @@ paths:
       tags:
       - therapists
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -883,8 +1107,9 @@ paths:
               $ref: '#/components/schemas/AppointmentBooking'
         required: true
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -916,8 +1141,9 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedAppointmentBooking'
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -938,8 +1164,9 @@ paths:
       tags:
       - therapists
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '204':
@@ -950,8 +1177,9 @@ paths:
       tags:
       - therapists
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -979,8 +1207,9 @@ paths:
               $ref: '#/components/schemas/AppointmentTime'
         required: true
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '201':
@@ -1002,8 +1231,9 @@ paths:
       tags:
       - therapists
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -1036,8 +1266,9 @@ paths:
               $ref: '#/components/schemas/AppointmentTime'
         required: true
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -1069,8 +1300,9 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedAppointmentTime'
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -1091,8 +1323,9 @@ paths:
       tags:
       - therapists
       security:
-      - cookieAuth: []
       - basicAuth: []
+      - cookieAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '204':
@@ -1455,6 +1688,26 @@ components:
       - id
       - img
       - name
+    TokenObtainPair:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - password
+      - refresh
+      - username
   securitySchemes:
     basicAuth:
       type: http
@@ -1463,3 +1716,7 @@ components:
       type: apiKey
       in: cookie
       name: sessionid
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
